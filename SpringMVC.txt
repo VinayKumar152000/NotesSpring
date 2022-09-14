@@ -1,0 +1,32 @@
+Springmvc- sub framework of spring framework.
+-> built on the top of servlet api(internally uses servlet concepts)
+-> follows mvc pattern(model,view,controller)
+-> implements or follows are spring core principles inverson of control,dependency injection etc.
+
+why spirng mvc- 
+-> follows mvc pattern, make code clean and modular.
+-> helps in rapid application development.
+-> follow features like ioc, dependency injection(makes app loosely coupled),autowring etc.
+
+working of spring mvc->
+client send req to server -> intially we have frontcontroller which handles this request(dispatcher servlet) and it delegate
+or redirect the request to a specific controller which is requested and than controller gives back the data and view to
+be shown to the client.
+controller sends back data and view to frontcontroller and frontcontroller with the help of view resolver adds the data to
+view template or resolve the view and than frontcontroller will send back respoonse to the client.
+
+
+configuring tomcat-> download tomcat and open build path in sts,serach for server and add apache new server and give path
+to directory where we have tomcat.
+-> run tomcat by searching for server. Hence server is up and running.
+
+creating springmvc web app->
+configure dispatcher servlet(which is front controller) -> give its name and mappings
+create spring configuration file(where we have bean all like stuff)-> its name must we dispathcerServletname-config file name.
+configure view resolver in spirng config file 
+create controller and view to show in views folder.
+
+
+deploy war to tomcat-> create war file by mvn clean install,packaging as war in pom.xml.
+and add war file to webapp folder inside apache tomcat.
+run the server and hence your application is deployed.
