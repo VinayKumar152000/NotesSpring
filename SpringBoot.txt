@@ -1,0 +1,286 @@
+Spring Boot Exception Handling
+
+@ControllerAdvice used to globally delcare or handle all the specific and global exceptions.
+@ExceptionHandler(classname of the exception to handled) handles the exceptions.
+It is used over the method which will run when a particualar exception is thrown.
+
+Control Flow of exception handling
+
+Contrller ---> services ->we throw an exception using custom exception---> goes to globalexceptionhandler
+  where all exceptions and handled
+---> method runs for specific exception and add details we want to send and return the response ---> response goes
+back to services and than controller and than to client.
+
+GlobalExceptionhandler handles all the exceptios when thrown,major benfit we can  handle exception globally.
+
+we need to call parent class constructor i.e runtimeexception using super keyword and need to pass the specific data to
+it which need to be included in response. //basically creates a new exception with given data
+
+
+
+/**************Spring Security****************/
+->application level  security framework-> means security  is applied at application. -> security includes data access control.
+-we can authneticate and authorize  users to which functionality they can access.
+-> framework which provides security featuers like authetication and authorizatin(using it we can authorize and authenticate
+users)
+-> authenticate means validating user on specific data who they are.
+-> authorization-. means giving access or permision to a user or person what they are allowed to access.
+-> filter-> filter is object which invoked at preprocessing(just before processing) and postprocessing(after  processing)
+ of req. we can do task to be done in pre and post processing of request in them.//req is processed by servlet or dipsatcher
+servlet in spring boot
+
+-> principal-> it is the currently loggedin useror person.(with the help of this principal application makes user to access features of site when logged in once)
+no need to login each time. (basically this is done with the help of sending unique cookie token for that user and it it saved in browser and used each time
+while sending req and is mapped with token on server),hence no need to login again and again.
+
+->Granted Authority-> authorization or given access to particular thing or section of website.
+-> Roles ->baically we assign authorities in terms of roles. specific role can have access to specific data or properties.(like admin and user role)
+
+springboot-starter-security dep used to include spring security in our application
+
+Spring security acts as a filter and sits before the servlet and checks for user authentication.
+
+Spring Security Default Behavior-> adds mandatory authenticatin for url's(we need to authenticate to access urls)
+-> adds loginform
+-> handles login error(having logic of checking user login data)
+-> creates user and sets a default password
+
+// it generates a username as -> user(by default)
+and generate new passowrd each time we run spring application
+
+
+working of authentication->
+filter takes the request and create a authenticaton object with provided info and pass it to the authentication manager(it is a interface ),it have a method
+ authenticate(Authenication auth) only method not implementation as it is a interface--> we have various type of authenetication provider so in order to have
+ specific matched authnetication,authentication manger takes
+help of provider manger and it checks for suitalbe authentication provider.
+if we found suitable authentication provider than auth  provider takes help of userservices to match data,if data found correct it return an obj with true property
+and hence passed to  filter  and it set the auth object in security context.
+
+
+//hence we proceed to our application.
+
+ant matches are used for matching url,so that we can permit permission for specific url.
+//role based authentication -> using antmatcher based on url we can give permissions for a particular role.
+
+Csrf->  it is basically a attack from which the spring boot protects us.(basically in case of non-browser clients we
+ disable it).
+
+
+JWT -> json web token -> information is shared between client and server in the form of token i.e jwt. (internally the json
+obj is encrypted into token form and it shared over client and server) that's why it called json web token
+
+-> due to jwt their is no need to use cookies and session.
+-> when client make a req and new token is genreated and send back with reponse toit. when next time that sameuser want
+to access data,it will send that token and that token is vaidated by server with data it is having.
+
+server checks -> jwt is well formed,check its singature,validate the standard claims,check the client permission(is client have token  or not).
+
+
+/******Swagger***/
+swagger is basically a tool used to genereate rest api's docs automatically for us. suppose client wants all the end points
+and payload to be sent info. one way is that we write doc by ourselve and than send to them,other way is to use some tool.
+here swagger comes into picture.
+//any changes rest controllers or payload swagger will automatcally updated our api docs.
+
+//swagger adding steps to spring boot
+-> getting swagger2 dependecy
+-> enabling swagger in our code
+-> configuring swagger
+-> adding details as annotations to api's
+
+//swagger generates docs of diff type -> like json by adding dep spring fox--json, and for html we add springfox-swagger ui
+
+// root url -> i.e / is having swagger html documentation so we must add request mapping to map our controllers to some 
+//other route or endpoint http://localhost:8080/swagger-ui.html
+
+//configuring swagger -> so that we can customize the generated doc and give info to swagger which endpoints or info to show.
+to customize swagger we need to create spring bean of type docket and it contains all properties which swagger need to 
+take care while genereating doc
+
+//we can use spring annotations to add somemore details. like if we want to add some info to endpoints we can use spring
+annotations which helps us to do this.
+
+// to customize swagger we need to add more and more annotaions to avoid this ,there is another way to write doc ie. spring rest doc.
+
+
+/******/
+7
+
+Definitely the error is that the AnonymousAuthenticationFilter is being executed before the UsernamePasswordAuthenticationFilter (check the default order here)
+
+I owe you the explanation about why is configured like that in your case but I will answer this one.
+
+Why is the app. configured to try both methods of authentication?
+The anonymous filter must execute after of any attempts of authentication and what it does is put an AuthenticationToken in the SecurityContextHolder if there is no one already (this means that all authentication attemps failed).
+
+Spring does this to have a more consistent way of deal with the Authentication token, otherwise it should ask if SecurityContextHolder.getAuthentication != null 
+and this will complicate the authorization mechanism, for example ask for the role of the user.
+
+
+Alias	Filter Class	Namespace Element or Attribute
+CHANNEL_FILTER
+
+ChannelProcessingFilter
+
+http/intercept-url@requires-channel
+
+SECURITY_CONTEXT_FILTER
+
+SecurityContextPersistenceFilter
+
+http
+
+CONCURRENT_SESSION_FILTER
+
+ConcurrentSessionFilter
+
+session-management/concurrency-control
+
+HEADERS_FILTER
+
+HeaderWriterFilter
+
+http/headers
+
+CSRF_FILTER
+
+CsrfFilter
+
+http/csrf
+
+LOGOUT_FILTER
+
+LogoutFilter
+
+http/logout
+
+X509_FILTER
+
+X509AuthenticationFilter
+
+http/x509
+
+PRE_AUTH_FILTER
+
+AbstractPreAuthenticatedProcessingFilter Subclasses
+
+N/A
+
+CAS_FILTER
+
+CasAuthenticationFilter
+
+N/A
+
+FORM_LOGIN_FILTER
+
+UsernamePasswordAuthenticationFilter
+
+http/form-login
+
+BASIC_AUTH_FILTER
+
+BasicAuthenticationFilter
+
+http/http-basic
+
+SERVLET_API_SUPPORT_FILTER
+
+SecurityContextHolderAwareRequestFilter
+
+http/@servlet-api-provision
+
+JAAS_API_SUPPORT_FILTER
+
+JaasApiIntegrationFilter
+
+http/@jaas-api-provision
+
+REMEMBER_ME_FILTER
+
+RememberMeAuthenticationFilter
+
+http/remember-me
+
+ANONYMOUS_FILTER
+
+AnonymousAuthenticationFilter
+
+http/anonymous
+
+SESSION_MANAGEMENT_FILTER
+
+SessionManagementFilter
+
+session-management
+
+EXCEPTION_TRANSLATION_FILTER
+
+ExceptionTranslationFilter
+
+http
+
+FILTER_SECURITY_INTERCEPTOR
+
+FilterSecurityInterceptor
+
+http
+
+SWITCH_USER_FILTER
+
+SwitchUserFilter
+
+N/A
+
+Spring Boot Actuator****************************
+It is a spring feature which helps us to monitor and manage our application when we push code to production...
+we can monitor our application by http endpoints acututor provide or by jmx.
+//intially /actuator endpoint is enabled which gives us all the endpoints which are enabled.  
+//we can enable endpoints as per our need and also exclude the one we don't want.
+
+e:g we can have info of bean in our appliaction or info about our db etc.
+//read official doc from spring.io or baledung.
+
+
+//calling stored proecedure thorugh spring boot using jdbc template
+
+SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate)
+
+.withProcedureName("STORED_PROCEDURE_NAME");
+
+Map<String, Object> inParamMap = new HashMap<String, Object>();
+//passing input paramters
+inParamMap.put("firstName", "FirstNameValue");
+inParamMap.put("lastName", "LastNameValue");
+SqlParameterSource in = new MapSqlParameterSource(inParamMap);
+
+//we expect output paras in the form of a map
+int contactId = 10;
+ 
+SimpleJdbcCall actor = new SimpleJdbcCall(dataSource).withProcedureName("get_contact");
+SqlParameterSource inParams = new MapSqlParameterSource().addValue("contact_id", contactId);
+ 
+Map<String, Object> outParams = actor.execute(inParams);
+ 
+String name = (String) outParams.get("_name");
+String email = (String) outParams.get("_email");
+String address = (String) outParams.get("_address");
+String phone = (String) outParams.get("_phone");
+ 
+System.out.println(name + ", " + email + ", " + address + ", " + phone);
+
+
+Map<String, Object> simpleJdbcCallResult = simpleJdbcCall.execute(in);
+System.out.println(simpleJdbcCallResult);
+
+
+//we create stored procedure in our database,we can use mysql workbench incase of mysql,and with the help of orm tool or jdbc
+template we can call our stored preocdure when we want to run it.
+
+
+//link -https://www.youtube.com/watch?v=zDG2wPoOI1w
+https://www.youtube.com/watch?v=x4i3r-5kx7M
+//stored procedure-> benfits- faster execuiton of code if query is repeated,as database execute its executable file only
+if called again and again.
+//makes code modular and more readalbe and we just need to call stored procedure where the need of query is

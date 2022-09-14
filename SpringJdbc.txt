@@ -1,0 +1,10 @@
+spring jdbc provide jdbc templateclasss  to perform operation on db. we need object of this class to peform operations.
+
+problems with simple jdbc-
+we need to write lot of code -> need to create connection object each time,jdbc template handles this.
+-> exception handling -> we need to use try catch for each operation in jdbc, as all exception are checked.
+
+
+Autowring- feature of spring in which spring container automatically inject dependencies.
+
+works only for reference type values not for primtive types.

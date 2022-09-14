@@ -1,0 +1,15 @@
+//testing with framework
+what we have todo-> preparation,provide test inputs,provide expected output
+//junit handles these thingsfor us -> run the test,verfiy the result,alert the developer on failing orsuccess
+
+problems with junit4
+way too older,not upto date with new testingpattern,not upto date with new java features,have monolithic architecture,bugs
+and feature request got piled up
+
+Junit5!=Junit4 + 1.(it follows while diff approach)
+
+Junit5 architecure-> consist of platform-> it consist of libraries which helps in running test cases. we interact with platform
+with junit api i.e jupiter
+vintage-> helps to runs older test cases based on older version of junit
+->>extends-> allows to write custom test cases api and make use of platform to run test cases
+--> ide's use platform to run testcases

@@ -1,0 +1,11 @@
+Git Clone->clone a repo or branch from github locally
+clone a repo-> git clone https://github.com/ImDwivedi1/Git-Example.git  
+
+clone specific brnach from a repo to a specific folder
+ git clone -b master https://github.com/ImDwivedi1/Git-Example.git "new folder(2)" 
+
+->>> git stash -> it is used to save current branch changes temporarily so the we can switch between multiple branches without
+commiting the code.
+git statsh "statshing message"
+
+git init.

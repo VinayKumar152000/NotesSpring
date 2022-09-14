@@ -1,0 +1,82 @@
+Functional Interface- > interface having only one abstract method,there may be any no. of default methods is called functional interface. Java provide 
+@FunctionalInterface annotation which shows interface is functional,although it is optional.
+
+Runnable, ActionListener, Comparable are some of the examples of functional interfaces. 
+
+Lambda Expression-> expression which provide implemenation for functional interface called lambda expression.
+they can only provide implemenation of functional interfaces.
+Syntax - (argument list) -> {body of exprssion}
+arugment list -> it can be 0 or more
+-> => arrow token connects argument list with body of expression
+{body of lamda exprresion}
+
+Using lambda expression we can pass set of code as argument to a method. element of functional interface
+type can only have lambda expression as value.
+
+For Each loop-> it is similar to simple for loop which help to iterate over elements. It takes single paramter which is a
+functional interface. ie.Consumer interface.
+
+default void forEach(Consumer<super T>action)  signatre in iterable interface. iterable interface provideit.
+
+ArrayList<Integer> arrL = new ArrayList<Integer>();
+        arrL.add(1);
+        arrL.add(2);
+        arrL.add(3);
+        arrL.add(4);
+	
+	// int arrL[]={2,35,2,6};
+  
+//we cannot  change varialbes inside lambda expression.
+		arrL.forEach((games) -> {
+			System.out.println(games);
+		});
+
+//We can also call Lambda expressions as the instance of functional interface.
+
+//Method reference -> it is compact form  of lambda expression.(creates obj of that interface in case of interface like lambda expression and with help of that
+we can access implementation) we can use it to refer method of any interface or class.
+//we can refer there types of  values-> static method -> className:: methodName
+----> instance method :-> classObject :: methodName
+---> constuctor :-> className::new
+
+Runnable –> This interface only contains the run() method.
+Comparable –> This interface only contains the compareTo() method.
+ActionListener –> This interface only contains the actionPerformed() method.
+Callable –> This interface only contains the call() method.
+
+
+
+//four types of functional interfaces
+Consumer -> accept only one argument, returns nothing,functional variants include,doubleconsuemer,intconsumer,longconsumer takes primtive value.
+syntax- Consumer<Integer> consumer = (value) -> System.out.println(value);
+//implemenation of consumer print the values passed as argument in print method.
+Predicate -> accepts only one argument and do some sort of processing and return boolean type of value. it also have functional variants similiar to consumer functinal
+interface. The logic of filtering based on predicate is encapsulated in implementation of predicate interface.
+sytnax public interface Predicate<T> {
+ 
+    boolean test(T t);
+ 
+}
+//predicate using lambda Predicate predicate = (value) -> value != null;,we can also implement using class
+Function - receive single argument and return resutl based on sum processing.
+Supplier-> takes no argument but return a single output.(we can have sequence genreaton kind of logic in it). also have function variants.
+
+subparts of first three interfaces
+Consumer -> Bi-Consumer -> takes two arguments else same as consumer
+Predicate -> Bi-Predicate-> takes two arguments else same as predicate.
+Function -> Bi-Function -> takes two arguments 
+syntax 
+@FunctionalInterface
+public interface BiFunction<T, U, R> 
+{
+ 
+   R apply(T t, U u);
+    .......
+ 
+}
+In the above code of interface, T, U are the inputs, and there is only one output that is R. 
+
+, Unary Operator -> extends the function,the input and output must be identical and of same type, Binary Operator extends the bi function- the input and output must be identical and of same type.
+
+
+streams ---> https://www.baeldung.com/java-8-streams

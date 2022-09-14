@@ -1,0 +1,30 @@
+https://www.geeksforgeeks.org/microservices-introduction/
+
+Service Discovery-> two models to discover service. (service disocovery basically means finding service)
+client side disocveery- we have disocovery server acts as intermediatery that communicates with services.
+client -----> disocvery server -----> services
+all the services are registered on disocovery server
+client contacts disocvery server to have url of particular service. and after that client contacts the service to get specific info.
+
+spring cloud uses client side disocovery model.
+
+Server side disocvery--> client ---> disovery server ---> services
+client passes message directly to disovery server what it want and than discovery server passes that message to particular service. Hence further operations are performed.
+
+
+Monolithic Architecture-> in monolithic architecture single application is developed having components and is having common single database and a server. 
+problems with monolithic architecure is-> is any component fails whole application fails. 
+-> if server fails whole applicatoin is down. 
+-> they are not easily sacalable, if application is updated than whole system need to be rebuilt which cost lost of money. 
+-> one feature needs to be developed after one. we cannot do parallel feature building.
+-> we can only limited no. of technology in case of monolithic application to build it.
+
+
+SOA -> in it application is breakendown into feature level services(coarse grained architecutre). Each feature acts as a service.
+whole application is controlled by a central system.(centralized architecutre). Have single database shared by all services.
+
+Microservies arichtecture=> appliaction is broken down into task level services. features are further divided into fine grained tasks.
+microservies are indepenedent and are not controlled by any central sytem.(decentralized arichtecutre)
+Each service has it's own db. (we can use multiple teach stacks to buid particular service in it)
+
+https://www.youtube.com/watch?v=XjpxyGEUzBs
